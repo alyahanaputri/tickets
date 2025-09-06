@@ -54,8 +54,41 @@ const modalTitle = document.querySelector(".modal-title");
 const modalDesc = document.querySelector(".modal-description");
 const modalPrice = document.querySelector(".modal-price");
 
+const decButton = document.querySelector("#decrease");
+const incButton = document.querySelector("#increase");
+const amountInput = document.querySelector("#amount");
+
+const dateInput = document.querySelector("#tour-date");
+const today = new Date().toISOString().split("A")[0];
+
+const orderForm = document.querySelector("#order-form");
+
+// date
+dateInput.setAttribute("min", today);
+
+// increment, decrement
+
+incButton.addEventListener("click", () => {
+  let currentValue = parseInt(amountInput.value) || 0;
+  currentValue++;
+  amountInput.value = currentValue;
+});
+
+decButton.addEventListener("click", () => {
+  let currentValue = parseInt(amountInput.value) || 0;
+  if (currentValue > 0) {
+    currentValue--;
+    amountInput.value = currentValue;
+  }
+});
+
+// modal
+
 function buka(nama, desc, price) {
-  container.style.display = "block";
+  container.style.display = "flex";
+  container.style.justifyContent = "center";
+  container.style.alignItems = "center";
+
   modalTitle.innerHTML = `${nama}`;
   modalDesc.innerHTML = `${desc}`;
   modalPrice.innerHTML = `${price}`;
@@ -63,6 +96,9 @@ function buka(nama, desc, price) {
 
 function tutup() {
   container.style.display = "none";
+  amountInput.value = 0;
+  firstName.value = "";
+  lastName.value = "";
 }
 
 function create(tour, nama, desc, price) {
@@ -85,3 +121,33 @@ function spawn() {
 }
 
 spawn();
+
+// submit
+orderForm.addEventListener("submit", (event) => {
+  const firstName = document.querySelector("#fname").value;
+  const lastName = document.querySelector("#lname").value;
+  const selectedDate = dateInput.value;
+  const ticketAmount = amountInput.value;
+  const tourName = modalTitle.textContent;
+  const tourPrice = modalPrice.textContent.split("€")[1];
+  const totalPrice = Number(tourPrice) * Number(ticketAmount);
+
+  event.preventDefault();
+  if (amountInput === "") {
+    alert("Please select the amount of tickets for the tour!");
+    return;
+  }
+
+  const orderSummary = `
+  🎉 Order Confirmed!
+    --------------------
+    Tour: ${tourName}
+    Name: ${firstName} ${lastName}
+    Date: ${selectedDate}
+    Tickets: ${ticketAmount}
+    Price Info: €${tourPrice} each tickets
+    Total Price: €${totalPrice}
+  `;
+  alert(orderSummary);
+  tutup();
+});
