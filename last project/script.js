@@ -97,8 +97,8 @@ function buka(nama, desc, price) {
 function tutup() {
   container.style.display = "none";
   amountInput.value = 0;
-  firstName.value = "";
-  lastName.value = "";
+  document.querySelector("#fname").value = "";
+  document.querySelector("#lname").value = "";
 }
 
 function create(tour, nama, desc, price) {
@@ -133,7 +133,7 @@ orderForm.addEventListener("submit", (event) => {
   const totalPrice = Number(tourPrice) * Number(ticketAmount);
 
   event.preventDefault();
-  if (amountInput === "") {
+  if (ticketAmount === "0") {
     alert("Please select the amount of tickets for the tour!");
     return;
   }
