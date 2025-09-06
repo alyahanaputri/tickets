@@ -19,17 +19,34 @@
     <section>
       <div id="container">
         <div class="modal">
-          <h2 class="modal-title"></h2>
+          <ul>
+            <li>
+              <h2 class="modal-title"></h2>
+              <span class="tutup" onclick="tutup()">x</span>
+            </li>
+          </ul>
           <p class="modal-description"></p>
           <p class="modal-price"></p>
-          <form>
+          <form id="order-form">
             <label for="fname">First name:</label><br />
             <input type="text" id="fname" name="fname" /><br />
             <label for="lname">Last name:</label><br />
-            <input type="text" id="lname" name="lname" />
+            <input type="text" id="lname" name="lname" /> <br /><br /><br />
+            <label for="tour-date">Select a date:</label><br />
+            <input
+              type="date"
+              id="tour-date"
+              name="tour-date"
+              required
+            /><br /><br />
+
+            <label for="amount">Tickets:</label><br />
+            <button type="button" id="decrease">-</button>
+            <input type="text" id="amount" value="0" readonly />
+            <button type="button" id="increase">+</button><br /><br /><br />
+
+            <button type="submit">Order!</button>
           </form>
-          <!-- <button class="pesen" onclick="order()">Order!</button> -->
-          <button class="tutup" onclick="tutup()">Close Here!</button>
         </div>
       </div>
 
